@@ -46,21 +46,18 @@ import static org.apache.camel.component.web3j.Web3jConstants.TO_ADDRESS;
  */
 @Component
 public class CamelOracleRoute extends RouteBuilder {
-
-    Random rand = new Random();
+    private Random rand = new Random();
 
     @Override
     public void configure() throws Exception {
         String topics = EventEncoder.buildEventSignature("CallbackGetBTCCap()");
-
         from("web3j://http://127.0.0.1:7545?operation=ETH_LOG_OBSERVABLE&topics=" + topics)
-                .to("log:received event")
+                .to("log:com.ofbizian.CallbackGetBTCCap?level=DEBUG")
 
                 .setHeader(OPERATION, constant(ETH_SEND_TRANSACTION))
                 .setHeader(FROM_ADDRESS, constant("0xc8CDceCE5d006dAB638029EBCf6Dd666efF5A952"))
                 .setHeader(TO_ADDRESS, constant("0x484982345fD584a0a16deC5F9ba330f6383af3d9"))
                 .setHeader(AT_BLOCK, constant("latest"))
-
                 .process(new Processor() {
                     public void process(Exchange exchange) throws Exception {
                         int random = rand.nextInt(50);
@@ -70,13 +67,6 @@ public class CamelOracleRoute extends RouteBuilder {
                     }
                 })
                 .to("web3j://http://127.0.0.1:7545")
-
-                .process(new Processor() {
-                    public void process(Exchange exchange) throws Exception {
-                        String body = exchange.getIn().getBody(String.class);
-                        System.out.println("transaction hash: " + body);
-                    }
-                })
-                .to("log:processed event ");
+                .to("log:com.ofbizian.setBTCCap?level=DEBUG");
     }
 }
