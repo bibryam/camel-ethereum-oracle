@@ -18,98 +18,92 @@
 
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
   <modelVersion>4.0.0</modelVersion>
-
-  <parent>
-    <groupId>org.apache.camel.example</groupId>
-    <artifactId>examples</artifactId>
-    <version>2.22.0-SNAPSHOT</version>
-  </parent>
-
-  <artifactId>camel-example-spring-boot-activemq</artifactId>
-  <name>Camel :: Example :: Spring Boot and ActiveMQ</name>
-  <description>An example showing how to work with Camel, ActiveMQ and Spring Boot</description>
+  <groupId>org.ofbizian.camel.ethereum.oracle</groupId>
+  <artifactId>camel-ethereum-oracle</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>Camel :: Ethereum :: Oracle</name>
+  <description>An example with Camel as Ethereum Oracle</description>
 
   <properties>
-    <category>Messaging</category>
-  
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <spring.boot-version>${spring-boot-version}</spring.boot-version>
+    <spring-boot-version>2.0.3.RELEASE</spring-boot-version>
+    <camel-version>2.23.0-SNAPSHOT</camel-version>
   </properties>
-  
+
   <dependencyManagement>
-  
     <dependencies>
       <!-- Spring Boot BOM -->
       <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-dependencies</artifactId>
-        <version>${spring.boot-version}</version>
+        <version>${spring-boot-version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
-      
       <!-- Camel BOM -->
       <dependency>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-spring-boot-dependencies</artifactId>
-        <version>${project.version}</version>
+        <version>${camel-version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
     </dependencies>
-    
   </dependencyManagement>
-  
+
   <dependencies>
-  
-    <!-- activemq -->
+    <!-- Spring Boot -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-activemq</artifactId>
+      <artifactId>spring-boot-starter-web</artifactId>
       <exclusions>
         <exclusion>
-          <groupId>org.apache.activemq</groupId>
-          <artifactId>activemq-broker</artifactId>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-tomcat</artifactId>
         </exclusion>
       </exclusions>
     </dependency>
-    
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-undertow</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-actuator</artifactId>
+    </dependency>
+
     <!-- Camel -->
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-spring-boot-starter</artifactId>
+      <version>${camel-version}</version>
     </dependency>
-    <dependency>
-      <groupId>org.apache.activemq</groupId>
-      <artifactId>activemq-camel</artifactId>
-      <!-- version>5.14.0</version-->
-      <exclusions>
-        <exclusion>
-          <groupId>org.apache.activemq</groupId>
-          <artifactId>activemq-broker</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-
-
     <dependency>
       <groupId>org.apache.camel</groupId>
-      <artifactId>camel-web3j</artifactId>
+      <artifactId>camel-stream-starter</artifactId>
+      <version>${camel-version}</version>
     </dependency>
-    
-    <!-- test -->
+    <dependency>
+          <groupId>org.apache.camel</groupId>
+          <artifactId>camel-web3j</artifactId>
+          <version>${camel-version}</version>
+    </dependency>
+
+      <!-- test -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
+        <version>${spring-boot-version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-test-spring</artifactId>
+      <version>${camel-version}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -142,13 +136,11 @@
           <plugin>
             <artifactId>maven-surefire-plugin</artifactId>
             <configuration>
-              <argLine>--add-modules java.xml.bind --add-opens
-                java.base/java.lang=ALL-UNNAMED</argLine>
+              <argLine>--add-modules java.xml.bind --add-opens java.base/java.lang=ALL-UNNAMED</argLine>
             </configuration>
           </plugin>
         </plugins>
       </build>
     </profile>
   </profiles>
-
 </project>

@@ -14,19 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package sample.camel;
+package com.ofbizian.camel;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-//CHECKSTYLE:OFF
 @SpringBootApplication
-@EnableAutoConfiguration
-public class SampleAmqApplication {
-
+public class MyCamelApplication {
     public static void main(String[] args) {
-        SpringApplication.run(SampleAmqApplication.class, args);
+        SpringApplication.run(MyCamelApplication.class, args);
     }
 }
-// CHECKSTYLE:ON
