@@ -51,8 +51,9 @@ public class CamelOracleRoute extends RouteBuilder {
     @Override
     public void configure() throws Exception {
         String topics = EventEncoder.buildEventSignature("CallbackGetBTCCap()");
+
         from("web3j://http://127.0.0.1:7545?operation=ETH_LOG_OBSERVABLE&topics=" + topics)
-                .to("log:com.ofbizian.CallbackGetBTCCap?level=DEBUG")
+                .to("log:com.ofbizian.CallbackGetBTCCap?level=INFO")
 
                 .setHeader(OPERATION, constant(ETH_SEND_TRANSACTION))
                 .setHeader(FROM_ADDRESS, constant("0xc8CDceCE5d006dAB638029EBCf6Dd666efF5A952"))
@@ -67,6 +68,6 @@ public class CamelOracleRoute extends RouteBuilder {
                     }
                 })
                 .to("web3j://http://127.0.0.1:7545")
-                .to("log:com.ofbizian.setBTCCap?level=DEBUG");
+                .to("log:com.ofbizian.setBTCCap?level=INFO");
     }
 }
