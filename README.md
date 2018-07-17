@@ -1,5 +1,7 @@
 # Camel-Ethereum-Oracle
-Ethereum Oracle with Apache Camel and Web3J
+Ethereum Oracle with Apache Camel and Web3j
+
+![Oracle](https://raw.githubusercontent.com/bibryam/camel-ethereum-oracle/master/oracle.png)
 
 ### Deploy Oracle.sol contract 
 Compile the contract.
@@ -41,4 +43,6 @@ The complete Javascript based example are from [here](https://kndrck.co/posts/et
 On a separate terminal
 
     node client.js
+
+
 
